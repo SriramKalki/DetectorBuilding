@@ -3,7 +3,7 @@
 // Define pins:
 #define fsrpin A0
 #define green 7
-#define yellow 5
+#define blue 5
 #define red 2
 
 // Define variables:
@@ -14,7 +14,7 @@ void setup() {
   Serial.begin(9600);
   // Set LED pins as output:
   pinMode(green, OUTPUT);
-  pinMode(yellow, OUTPUT);
+  pinMode(blue, OUTPUT);
   pinMode(red, OUTPUT);
 }
 
@@ -23,20 +23,21 @@ void loop() {
   fsrreading = analogRead(fsrpin);
 
   // Print the fsrreading in the serial monitor:
-  Serial.println(fsrreading);
+  weight = .616*fsrreading + 0.8848;
+  Serial.println(weight);
 
   // Control the LEDs:
-  if (fsrreading > 50 && fsrreading < 100) {
+  if (weight > 50 && weight < 100) {
     digitalWrite(green, HIGH);
   }
   else digitalWrite(green, LOW);
   
-  if (fsrreading > 100 && fsrreading <200) {
-    digitalWrite(yellow, HIGH);
+  if (weight > 100 && weight <200) {
+    digitalWrite(blue, HIGH);
   }
-  else digitalWrite(yellow, LOW);
+  else digitalWrite(blue, LOW);
   
-  if (fsrreading > 200) {
+  if (weight > 200) {
     digitalWrite(red, HIGH);
   }
   else digitalWrite(red, LOW);
